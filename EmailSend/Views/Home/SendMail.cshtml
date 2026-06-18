@@ -1,0 +1,117 @@
+﻿@model EmailSend.Models.EmailModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Send Mail</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 500px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+        }
+
+        .btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background-color: #218838;
+            }
+
+        .message {
+            color: green;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Send Email</h2>
+
+        @using (Html.BeginForm("SendMail", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <table>
+                <tr>
+                    <td>To:</td>
+                    <td>@Html.TextBoxFor(m => m.To)</td>
+                </tr>
+
+                <tr>
+                    <td>Subject:</td>
+                    <td>@Html.TextBoxFor(m => m.Subject)</td>
+                </tr>
+
+                <tr>
+                    <td>Body:</td>
+                    <td>@Html.TextAreaFor(m => m.Body)</td>
+                </tr>
+
+                <tr>
+                    <td>Attachment:</td>
+                    <td>
+                        <input type="file" name="Attachment" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>From Email:</td>
+                    <td>@Html.TextBoxFor(m => m.Email)</td>
+                </tr>
+
+                <tr>
+                    <td>Password:</td>
+                    <td>@Html.PasswordFor(m => m.Password)</td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Send Mail" class="btn" />
+                    </td>
+                </tr>
+            </table>
+        }
+
+        <div class="message">
+            @ViewBag.Message
+        </div>
+    </div>
+
+</body>
+</html>
